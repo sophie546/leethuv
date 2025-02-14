@@ -1,3 +1,17 @@
-Input: s = "A man, a plan, a canal: Panama"
-Output: true
-Explanation: "amanaplanacanalpanama" is a palindrome.
+class Solution {
+    public boolean isPalindrome(String s) {
+                                    //^not this characters and , "" replace without space
+        String orig = s.replaceAll("[^a-zA-Z0-9]","").toLowerCase();
+        String rev ="";
+
+        for(int i= orig.length() - 1; i >=0; i--){
+            rev += orig.charAt(i);
+        }
+       
+        if(orig.equals(rev)){
+            return true;
+        } else{
+            return false;
+        }
+    }
+}
