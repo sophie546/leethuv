@@ -1,22 +1,16 @@
 class Solution {
     public int singleNumber(int[] nums) {
-        int num2 = 0;
+        HashSet<Integer> set = new HashSet<>();
+        int sumAll =0, uniqueSum =0;
 
-        for (int i = 0; i < nums.length; i++) {
-            boolean isDuplicate = false; 
-
-            for (int j = 0; j < nums.length; j++) {
-                if ( i !=j && nums[i] == nums[j]) { 
-                    isDuplicate = true;
-                    break; 
-                }
+        for(int num : nums){
+            if(!set.contains(num)){
+                set.add(num);
+                uniqueSum += num;
             }
-
-            if (!isDuplicate) {
-                return nums[i]; 
-            }
+            sumAll += num;
         }
-        
-        return num2; 
+
+        return 2 * uniqueSum - sumAll;
     }
 }
