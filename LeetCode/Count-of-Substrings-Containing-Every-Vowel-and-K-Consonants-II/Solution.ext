@@ -1,46 +1,48 @@
+import java.util.HashSet;
+import java.util.Set;
+
 class Solution {
     public long countOfSubstrings(String word, int k) {
-        int[][] frequencies = new int[2][128];
-        frequencies[0]['a'] = 1;
-        frequencies[0]['e'] = 1;
-        frequencies[0]['i'] = 1;
-        frequencies[0]['o'] = 1;
-        frequencies[0]['u'] = 1;
+        Set<Character> vowels = Set.of('a', 'e', 'i', 'o', 'u');
+        int[] vowelFreq = new int[128]; 
+        int left = 0, consonantCount = 0, uniqueVowels = 0, extraValidStart = 0;
+        long result = 0;
 
-        long response = 0;
-        int currentK = 0, vowels = 0, extraLeft = 0;
-
-        for (int right = 0, left = 0; right < word.length(); right++) {
+        for (int right = 0; right < word.length(); right++) {
             char rightChar = word.charAt(right);
 
-            if (frequencies[0][rightChar] == 1) {
-                if (++frequencies[1][rightChar] == 1) vowels++;
+         
+            if (vowels.contains(rightChar)) {
+                if (++vowelFreq[rightChar] == 1) uniqueVowels++;
             } else {
-                currentK++;
+                consonantCount++;
             }
 
-            while (currentK > k) {
+           
+            while (consonantCount > k) {
                 char leftChar = word.charAt(left);
-                if (frequencies[0][leftChar] == 1) {
-                    if (--frequencies[1][leftChar] == 0) vowels--;
+                if (vowels.contains(leftChar)) {
+                    if (--vowelFreq[leftChar] == 0) uniqueVowels--; 
                 } else {
-                    currentK--;
+                    consonantCount--;
                 }
                 left++;
-                extraLeft = 0;
+                extraValidStart = 0;
             }
 
-            while (vowels == 5 && currentK == k && left < right && frequencies[0][word.charAt(left)] == 1 && frequencies[1][word.charAt(left)] > 1) {
-                extraLeft++;
-                frequencies[1][word.charAt(left)]--;
+          
+            while (uniqueVowels == 5 && consonantCount == k && vowels.contains(word.charAt(left)) && vowelFreq[word.charAt(left)] > 1) {
+                extraValidStart++;
+                vowelFreq[word.charAt(left)]--;
                 left++;
             }
 
-            if (currentK == k && vowels == 5) {
-                response += (1 + extraLeft);
+           
+            if (uniqueVowels == 5 && consonantCount == k) {
+                result += (1 + extraValidStart);
             }
         }
 
-        return response;
+        return result;
     }
 }
