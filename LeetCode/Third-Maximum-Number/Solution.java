@@ -1,6 +1,6 @@
 class Solution {
     public int thirdMax(int[] nums) {
-        LinkedHashSet<Integer> set = new LinkedHashSet<>();
+        HashSet<Integer> set = new HashSet<>();
         int res = 0;
 
         for(int num : nums){
