@@ -13,6 +13,7 @@ class Solution {
                             break;
                         }
                    }
+                   break;
                 }
             }
             index++;
