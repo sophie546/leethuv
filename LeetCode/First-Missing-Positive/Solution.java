@@ -1,15 +1,13 @@
-class Solution {
-    public int firstMissingPositive(int[] nums) {
-        HashSet<Integer> set = new HashSet<Integer>();
-        for(int num : nums){
-            set.add(num);
-        }
-        for(int i = 1; i < nums.length + 2; i++){
-            if(!set.contains(i)){
-                return i;
-            }
-        }
-
-        return 0;
-    }
-}
+class Solution:
+    def firstMissingPositive(self, A):
+        n = len(A)
+        
+        for i in range(n):
+            while 1 <= A[i] <= n and A[A[i] - 1] != A[i]:
+                A[A[i] - 1], A[i] = A[i], A[A[i] - 1]
+        
+        for i in range(n):
+            if A[i] != i + 1:
+                return i + 1
+        
+        return n + 1
