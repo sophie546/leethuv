@@ -1,0 +1,24 @@
+1class Solution:
+2    def maximizeSquareArea(self, m: int, n: int, hFences: List[int], vFences: List[int]) -> int:
+3        maxL=0
+4        seen=set()
+5        def findLen(fences, calM):
+6            nonlocal maxL
+7            fences.sort()
+8            for x, y in combinations(fences, 2):
+9              
+10                Len=y-x
+11                if calM: 
+12                    if Len>maxL and Len in seen:
+13                        maxL=Len
+14                else:
+15                    seen.add(Len) 
+16        hz, vz=len(hFences)+2, len(vFences)+2
+17        if hz>vz:
+18            return self.maximizeSquareArea(n, m, vFences, hFences)
+19        hFences+=[1, m]
+20        vFences+=[1, n]
+21        findLen(hFences, False)
+22        findLen(vFences, True)
+23        return -1 if maxL==0 else maxL*maxL%(10**9+7)
+24        
