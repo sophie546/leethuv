@@ -1,15 +1,18 @@
-class Solution:
-    def nextGreatestLetter(self, letters: List[str], target: str) -> str:
-        res = letters[0]
-        flag = False
+char nextGreatestLetter(char* letters, int lettersSize, char target) {
+    char res = letters[0];
+    int flag = 0;
 
-        for ch in letters:
-            if not flag:
-                if ch > target:
-                    res = ch
-                    flag = not flag
-            else:
-                if ch > target and ch < res:
-                    res = ch
+    for (int i = 0; i < lettersSize; i++) {
+        char ch = letters[i];
+        if (!flag) {
+            if (ch > target) {
+                res = ch;
+                flag = 1;
+            }
+        } else {
+            if (ch > target && ch < res) res = ch;
+        }
+    }
 
-        return res
+    return res;
+}
