@@ -1,0 +1,1 @@
+for s in map(str, range(1, n+1)):
