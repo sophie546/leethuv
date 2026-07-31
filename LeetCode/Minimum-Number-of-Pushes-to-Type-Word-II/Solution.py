@@ -1,0 +1,1 @@
+frequency * (i / 8 + 1)
