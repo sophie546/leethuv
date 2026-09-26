@@ -1,0 +1,2 @@
+const evaluate = (s, K, d = _.fromPairs(K)) =>
+    s.replace(/\((\w+)\)/g, (_, k) => d[k] ?? "?");
